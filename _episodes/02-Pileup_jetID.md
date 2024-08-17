@@ -288,8 +288,4 @@ Here we are going add the Noise filters from the[twiki](https://twiki.cern.ch/tw
 > How many events do you reject with this requirement?
 {: .challenge}
 
-> ## Question 2.5
-> In what unit will the x-axis be plotted? Another way of asking this is what pileup variable can be measured in both data and MC and is fairly robust?
-{: .challenge}
-
 
