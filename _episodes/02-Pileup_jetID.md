@@ -50,7 +50,9 @@ We need to simulate out-of-time interactions, time structure of detector sensiti
 Many clever ways have been devised to remove the effects of pileup from physics analyses and
 objects. Pileup affects all objects (MET, muons, etc.). We are focusing on jets today.
 
-### $\rho$ pileup correction
+To mitigate PU in jets, we can do it in two steps, first at particle-level and then at the jet-level.
+
+### jet-level PU mitigation: $\rho$ pileup correction
 
 Imagine making a grid out of your detector, then $\rho$ is the median patch value (pT/area). Therefore, the corrected jet momentum is:
 $$p_T^{corr} = p_T^{raw} - (\rho \times area)$$
@@ -109,38 +111,35 @@ There are 12 interactions before and 3 after.
 > <img src="../fig/episode2/efracs_particles_8TeV.png" alt="Jet Composition MC" width="380px" />
 {: .solution}
 
-### Charged Hadron Subtraction (CHS)
+### particle-level PU mitigation
 
-Tracking is a major tool in CMS. We can identify most charged particles from non-leading primary vertices, CHS removes these particles. 
-
-
-### PileUp Per Particle Identification (PUPPI)
-
-Unfortunately, pileup is not really isotropic, it is uneven:
+Unfortunately, pileup is not really isotropic, it is uneven. Pileup particles produce additional tracks and deposits in the calorimeters, which are also reconstructed as PF candidates and can overlap with PF candidates belonging to a jet.
 
 <img src="../fig/episode2/puppi_rho.svg" alt="">
 
-PUPPI is trying to have an inherently local correction based on the following information: A particle from the hard scatter process is likely near (geometrically) other particles from the same interaction and have a generally higher pT. We expect particles from pileup to have no shower structure, have generally lower pT, and be uncorrelated with particles from the leading vertex.
+The paticle-level PU mitigation techniques ensure an inherently local correction. The two techniques used in CMS are:
+
+- **Charged Hadron Subtraction (CHS)** mitigates this charged pileup contribution by removing charged particles originating from pileup vertices. However, it is limited to the tracker-covered region and does not account for neutral pileup contributions.
+- **PileUp Per Particle Identification (PUPPI)** complements CHS by assigning a probability to each particle, quantifying its similarity to pileup. It operates under the assumption that particles originating from the hard scatter process are likely to be near (geometrically) other particles from the same interaction and generally have higher pT​. In contrast, particles from pileup tend to lack shower structure, have lower pT, and are uncorrelated with particles from the leading vertex. These estimated probabilities are then used to assign weights to the four-momentum of the particles.
 
 <img src="../fig/episode2/puppi.svg" alt="">
 
-
-### Exercise 2.2
+#### Exercise 2.2
 
 > ## Open a notebook
 >
 > For this part open the notebook called `Pileup.ipynb` and run the Exercise 2.2
 {: .checklist}
 
-> ## Discussion 2.1
+> ## Discussion 2.2
 > Do you see any difference in the jet pt for CHS and PUPPI jets? Where you expecting these results?
 {: .discussion}
 
 ## Pileup reweighting
 
-Start with chosen input distribution – the instantaneous luminosity for a given event is sampled from this distribution to obtain the mean number of interactions in each beam crossing. The number of interactions for each beam crossing that will be part of the event (in- and out-of-time) is taken from a poisson distribution with the predetermined mean. The input distribution is thus smeared by convolving with a poisson distribution in each bin. This is what the observed distribution should look like after the poisson fluctuations of each interaction
+<!-- Comment: Start with chosen input distribution – the instantaneous luminosity for a given event is sampled from this distribution to obtain the mean number of interactions in each beam crossing. The number of interactions for each beam crossing that will be part of the event (in- and out-of-time) is taken from a poisson distribution with the predetermined mean. The input distribution is thus smeared by convolving with a poisson distribution in each bin. This is what the observed distribution should look like after the poisson fluctuations of each interaction -->
 
-<img src="../fig/episode2/pu_reweight.svg" alt="" style="width:50%">
+<!-- Comment: <img src="../fig/episode2/pu_reweight.svg" alt="" style="width:50%"> -->
 
 The __Goal__ of the pileup reweighting procedure is to match the generated pileup distribution to the one found in data:
  * Step 1: Create the weights
@@ -272,4 +271,25 @@ C++ from a miniAOD file:
 {: .challenge}
 
 {% include links.md %}
+
+## Noisy event filters
+Detector noise, cosmic rays, and beam-halo particles can lead to large anomalous missing energy in the detector and can be an indication of problematic event reconstruction. To ensure good event reconstruction, JME POG requires the use of Noisy event filters, formerly called MET filters. For 2018, you can find the list of recommended filters on the [twiki](https://twiki.cern.ch/twiki/bin/view/CMS/MissingETOptionalFiltersRun2#Run_2_recommendations).
+ 
+### Exercise 2.5
+
+Here we are going add the Noise filters from the[twiki](https://twiki.cern.ch/twiki/bin/view/CMS/MissingETOptionalFiltersRun2#Run_2_recommendations).
+
+> ## Open a notebook
+>
+> For this part open the notebook called `Pileup.ipynb` and after Excercise 3, apply the filters for 2018 in an `AND` combination.
+{: .checklist}
+
+> ## Question 2.4
+> How many events do you reject with this requirement?
+{: .challenge}
+
+> ## Question 2.5
+> In what unit will the x-axis be plotted? Another way of asking this is what pileup variable can be measured in both data and MC and is fairly robust?
+{: .challenge}
+
 
