@@ -14,6 +14,24 @@ Once you logged in into the jupyterhub, it will ask you for the server options. 
 Now you need to clone the [jets-hats](https://github.com/FNALLPC/jets-hats) repository. For that you can go to the menu `Git > Clone a repository`. A small window will pop up and you can fill `Enter the URI of the remote Git repository` with the following url: [https://github.com/FNALLPC/jets-hats](https://github.com/FNALLPC/jets-hats). Click on `Clone` and you should be ready to go.
 
 
+## Purdue Analysis Facility
+
+Before the live session, please make sure that you can access Purdue Analysis Facility using the instructions below. In case of any questions/issues please post on the Mattermost channel.
+
+ * Navigate to the [Purdue AF](https://analysis-facility.physics.purdue.edu/) website and click “Login to Purdue Analysis Facility”.
+ *  On the CILogon page, choose CERN account to log in (using Fermilab or Purdue credentials is also possible).
+ *  You will be redirected to the “Server Options” page. The default resource selection (4 CPUs, 16 GB RAM) is enough for the HATS exercises, but you can select more resources if needed. Do not add GPUs to your session – there are not enough GPUs for all participants.
+ *  Click “Start” to create your Analysis Facility session. It may take a couple of minutes to load.
+ *  Done! Your session is ready.
+
+### Additional info
+
+ * As a CMS member, you can continue using Purdue AF for your work after HATS is over.
+ * Your Purdue AF session will keep running even if you close your web browser tab, so you can reconnect to it at any time. Idle sessions are terminated after 14 days.
+ * When you log in for the first time, we create a 25 GB private directory for you at /home/<username>, and a shared /work/users/<username> directory with 100 GB quota. These directories will persist for 6 months after your last activity at Purdue AF.
+ * Browse the [documentation](https://analysis-facility.physics.purdue.edu/) to learn more about available functionality.
+
+
 
 # Run exercises at the CMS-LPC
 
